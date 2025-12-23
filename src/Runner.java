@@ -12,7 +12,7 @@ public class Runner {
         ArrayList<String> lines = getFileData("src/Input");
 
         InputMaker i = new InputMaker();
-        System.out.println(i.getInput());
+        i.getInput();
 
         Cookies c = new Cookies(lines);
 
