@@ -1,7 +1,9 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Cookies {
     ArrayList<String> votes = new ArrayList<String>();
+    String[][] arr;
     int sugar;
     int butter;
     int chocolateChip;
@@ -11,6 +13,7 @@ public class Cookies {
         votes = lines;
     }
 
+    // part 1
     private void tally(){
         for (String row: votes){
             while (!row.isBlank()) {
@@ -33,17 +36,67 @@ public class Cookies {
 
     public int mostCookie(){
         tally();
+        // List cookie counts
+        System.out.println("Sugar: " + sugar);
+        System.out.println("Butter: " + butter);
+        System.out.println("Chocolate Chip: " + chocolateChip);
+        System.out.println("Gingerbread: " + gingerBread);
+        System.out.println();
         int cookie = Math.max(sugar, Math.max(butter, Math.max(chocolateChip, gingerBread)));
         return cookie;
     }
 
-//    public long totalCookie() {
-//
-//    }
-//
-//    private long factorial(int elves){
-//        if (elves > 0){
-//            factorial(elves - 1);
-//        }
-//    }
+    // part 2
+    private String[][] makeArray(){
+        int arrSize = (votes.getFirst().length() + 1) / 2;
+        String[][] twoDArray = new String[arrSize][arrSize];
+
+        for (int r = 0; r < votes.size(); r++){
+            String[] array = votes.get(r).split(" ");
+            for (int c = 0; c < twoDArray[0].length; c++){
+                twoDArray[r][c] = array[c];
+            }
+        }
+
+        return twoDArray;
+    }
+
+    private void checkSpot(int r, int c){
+        if (arr[r][c].equals("O")){
+            sugar ++;
+        } else if (arr[r][c].equals("*")){
+            butter++;
+        } else if (arr[r][c].equals("@")){
+            chocolateChip++;
+        } else if (arr[r][c].equals("0")){
+            gingerBread++;
+        }
+    }
+
+    private void checkSides(int r, int c){
+        // reset values
+        sugar = 0;
+        butter = 0;
+        chocolateChip = 0;
+        gingerBread = 0;
+
+        checkSpot(r-1, c-1);
+        checkSpot(r-1,c);
+        checkSpot(r-1, c+1);
+        checkSpot(r,c+1);
+        checkSpot(r, c-1);
+        checkSpot(r-1,c+1);
+        checkSpot(r-1, c);
+        checkSpot(r-1,c-1);
+    }
+
+    public void clusteredMostCookie(){
+        arr = makeArray();
+        int groupings = (arr.length * arr[0].length)/9;
+        for (int r = 2; r < groupings; r+=3){
+            for (int c = 2; c < groupings; c+=3){
+                checkSides(r, c);
+            }
+        }
+    }
 }

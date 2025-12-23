@@ -11,13 +11,14 @@ public class Runner {
         // to see how IntelliJ IDEA suggests fixing it.
         ArrayList<String> lines = getFileData("src/Input");
 
-        InputMaker i = new InputMaker();
-        i.getInput();
+//        InputMaker i = new InputMaker();
+//        i.getInput();
 
         Cookies c = new Cookies(lines);
 
         System.out.println("Part one answer: " + c.mostCookie());
-        System.out.println("Part two answer: ");
+        System.out.println("Part two answer: " );
+        c.clusteredMostCookie();
     }
 
     public static ArrayList<String> getFileData(String fileName) {
