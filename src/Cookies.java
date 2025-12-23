@@ -43,6 +43,11 @@ public class Cookies {
         System.out.println("Gingerbread: " + gingerBread);
         System.out.println();
         int cookie = Math.max(sugar, Math.max(butter, Math.max(chocolateChip, gingerBread)));
+        // clearing for part 2
+        sugar = 0;
+        butter = 0;
+        chocolateChip = 0;
+        gingerBread = 0;
         return cookie;
     }
 
@@ -75,10 +80,10 @@ public class Cookies {
 
     private void checkSides(int r, int c){
         // reset values
-        sugar = 0;
-        butter = 0;
-        chocolateChip = 0;
-        gingerBread = 0;
+        int sug = 0;
+        int but = 0;
+        int choc = 0;
+        int ging = 0;
 
         checkSpot(r-1, c-1);
         checkSpot(r-1,c);
@@ -88,6 +93,13 @@ public class Cookies {
         checkSpot(r-1,c+1);
         checkSpot(r-1, c);
         checkSpot(r-1,c-1);
+
+        int majority = Math.max(sugar, Math.max(butter, Math.max(chocolateChip, gingerBread)));
+
+        if (majority == sug) sugar++;
+        else if (majority == but) butter++;
+        else if (majority == choc) chocolateChip++;
+        else ging++;
     }
 
     public void clusteredMostCookie(){
