@@ -3,12 +3,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Runner {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
         ArrayList<String> lines = getFileData("src/Input");
 
 //        InputMaker i = new InputMaker();
@@ -16,9 +12,8 @@ public class Runner {
 
         Cookies c = new Cookies(lines);
 
-        System.out.println("Part one answer: " + c.mostCookie());
-        System.out.println("Part two answer: " );
-        c.clusteredMostCookie();
+        System.out.println("Part one answer: " + c.mostCookie() + "\n");
+        System.out.println("Part two answer: " + c.clusteredMostCookie());
     }
 
     public static ArrayList<String> getFileData(String fileName) {

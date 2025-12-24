@@ -9,6 +9,11 @@ public class Cookies {
     int chocolateChip;
     int gingerBread;
 
+    int sug = 0;
+    int but = 0;
+    int choc = 0;
+    int ging = 0;
+
     public Cookies(ArrayList<String> lines){
         votes = lines;
     }
@@ -68,22 +73,22 @@ public class Cookies {
 
     private void checkSpot(int r, int c){
         if (arr[r][c].equals("O")){
-            sugar ++;
+            sug ++;
         } else if (arr[r][c].equals("*")){
-            butter++;
+            but++;
         } else if (arr[r][c].equals("@")){
-            chocolateChip++;
+            choc++;
         } else if (arr[r][c].equals("0")){
-            gingerBread++;
+            ging++;
         }
     }
 
     private void checkSides(int r, int c){
         // reset values
-        int sug = 0;
-        int but = 0;
-        int choc = 0;
-        int ging = 0;
+        sug = 0;
+        but = 0;
+        choc = 0;
+        ging = 0;
 
         checkSpot(r-1, c-1);
         checkSpot(r-1,c);
@@ -94,21 +99,33 @@ public class Cookies {
         checkSpot(r-1, c);
         checkSpot(r-1,c-1);
 
-        int majority = Math.max(sugar, Math.max(butter, Math.max(chocolateChip, gingerBread)));
+        int majority = Math.max(sug, Math.max(but, Math.max(choc, ging)));
 
-        if (majority == sug) sugar++;
-        else if (majority == but) butter++;
-        else if (majority == choc) chocolateChip++;
-        else ging++;
+        if (majority == sug) {
+            sugar++;
+        } else if (majority == but) {
+            butter++;
+        } else if (majority == choc) {
+            chocolateChip++;
+        } else if (majority == ging){
+            gingerBread++;
+        }
     }
 
-    public void clusteredMostCookie(){
+    public int clusteredMostCookie(){
         arr = makeArray();
-        int groupings = (arr.length * arr[0].length)/9;
-        for (int r = 2; r < groupings; r+=3){
-            for (int c = 2; c < groupings; c+=3){
+        for (int r = 1; r < arr.length; r+=3){
+            for (int c = 1; c < arr[0].length; c+=3){
                 checkSides(r, c);
             }
         }
+        // List cookie counts
+        System.out.println("Sugar: " + sugar);
+        System.out.println("Butter: " + butter);
+        System.out.println("Chocolate Chip: " + chocolateChip);
+        System.out.println("Gingerbread: " + gingerBread);
+        System.out.println();
+
+        return Math.max(sugar, Math.max(butter, Math.max(chocolateChip, gingerBread)));
     }
 }
